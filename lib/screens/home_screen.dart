@@ -19,7 +19,7 @@ class HomeScreen extends StatelessWidget {
           child: Text('Peliculas en cine'),
           ),
       ),
-      body: Column(
+      body: const Column(
         children: [
           CardSwipper(),
         ],
