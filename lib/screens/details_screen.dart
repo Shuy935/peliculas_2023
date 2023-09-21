@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:peliculas_2023/widgets/widgets.dart';
 
 class DetailsScreen extends StatelessWidget {
   const DetailsScreen({super.key});
@@ -10,11 +11,13 @@ class DetailsScreen extends StatelessWidget {
         ModalRoute.of(context)?.settings.arguments.toString() ?? 'Sin nombre';
     return const Scaffold(
       body: CustomScrollView(
-        slivers: [_CustomAppBar(),
-        SliverList(delegate: SliverChildListDelegate.fixed([
-          _PosterAndTitle(),
-          _PosterAndTitle(),
-          _PosterAndTitle(),
+        slivers: [
+          _CustomAppBar(),
+          SliverList(
+              delegate: SliverChildListDelegate.fixed([
+            _PosterAndTitle(),
+            _Overview(),
+            CastingSlider(),
           ])),
         ],
       ),
@@ -99,10 +102,11 @@ class _PosterAndTitle extends StatelessWidget {
                       color: Colors.lightBlue,
                     ),
                     SizedBox(width: 5),
-                    Text('movie.voteAverage',
-                    style: TextStyle(fontSize: 15),
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 2,
+                    Text(
+                      'movie.voteAverage',
+                      style: TextStyle(fontSize: 15),
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 2,
                     ),
                   ],
                 ),
@@ -111,6 +115,25 @@ class _PosterAndTitle extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+class _Overview extends StatelessWidget {
+  const _Overview({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(
+        horizontal: 20, 
+        vertical: 10,
+        ),
+        child: const Text('Labore adipisicing elit eu qui culpa labore aliqua commodo duis. Duis in excepteur veniam in sunt aliqua. Commodo aliqua cillum nostrud eu ipsum eiusmod nulla ut occaecat. Velit culpa qui sint enim elit non culpa labore. Ad ad ex dolor exercitation elit ipsum aliquip voluptate excepteur excepteur id.',
+        textAlign: TextAlign.justify,
+        style: TextStyle(fontSize: 15),
+
+        ),
     );
   }
 }
