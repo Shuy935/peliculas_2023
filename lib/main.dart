@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:peliculas_2023/screens/screens.dart';
 import 'package:provider/provider.dart';
+import 'providers/movies_provider.dart';
 
-void main() => runApp(const MyApp());
+void main() => runApp(const AppState());
 
 class AppState extends StatelessWidget {
   const AppState({super.key});
