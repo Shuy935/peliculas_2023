@@ -7,8 +7,7 @@ class DetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //recibir argumentos de otra pantalla
-    final String movie =
-        ModalRoute.of(context)?.settings.arguments.toString() ?? 'Sin nombre';
+    final String movie = ModalRoute.of(context)?.settings.arguments.toString() ?? 'Sin nombre';
     return const Scaffold(
       body: CustomScrollView(
         slivers: [
