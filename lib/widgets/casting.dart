@@ -8,7 +8,7 @@ class CastingSlider extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     return Container(
       width: double.infinity,
-      height: size.height * .30,
+      height: size.height * .37,
       color: const Color.fromARGB(255, 255, 255, 255),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

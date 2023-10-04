@@ -8,7 +8,7 @@ class MovieSlider extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     return Container(
       width: double.infinity,
-      height: size.height * .30,
+      height: size.height * .37,
       color: Colors.black,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -18,7 +18,7 @@ class MovieSlider extends StatelessWidget {
               child: Text(
                 'Populares',
                 style: TextStyle(
-                  fontSize: 20,
+                  fontSize: 15,
                   fontWeight: FontWeight.bold,
                   color:  Colors.white,
                 ),
