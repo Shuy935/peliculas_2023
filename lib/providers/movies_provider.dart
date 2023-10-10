@@ -1,33 +1,56 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+//extanciando la libreria
 import 'package:http/http.dart' as http;
 import 'package:peliculas_2023/models/movie.dart';
 import 'package:peliculas_2023/models/now_playing_response.dart';
+import 'package:peliculas_2023/models/popular_response.dart';
 
+//
 class MoviesProvider extends ChangeNotifier {
   String _baseUrl = 'api.themoviedb.org';
   String _apiKey = '9dc27117b000e7e5acfb365fa957971a';
-  String _language = 'es-MX';
+  String _languague = 'es-MX';
 
   List<Movie> onDisplayMovies = [];
-
+  List<Movie> popularMovies = [];
+  //contructor
   MoviesProvider() {
     getOnDisplayMovies();
+    getPopularMovies();
   }
-
+  //hacer metodo ansincrono
   getOnDisplayMovies() async {
-    var url = Uri.https(_baseUrl, '3/movie/now_playing',
-        {'api_key': _apiKey, 'language': _language, 'page': '1'});
-
+    var url = Uri.https(
+        _baseUrl,
+        '3/movie/now_playing',
+        //Las llaves establecen los parametros que necesitamos
+        {'api_key': _apiKey, 'language': _languague, 'page': '1'});
+    //mandar llavar la peticion con el verbo get
     final response = await http.get(url);
+    //informacion del json
+    //decode data recibe la informacion
     final Map<String, dynamic> decodeData = json.decode(response.body);
+//convirtiendo el json a una instancia
+    final nowPlayingResponse = NowPlayingResponse.fromRawJson(response.body);
+    onDisplayMovies = nowPlayingResponse.results;
+
+    //avisarle a los widget que hubo modificacion, se cambio la data por lo tanto se tiene que redibujar.
+    //very importante
+    notifyListeners();
+    //print(nowPlayingResponse.results[0].title);
     //print(decodeData);
     //print(response.body);
-    final nowPLayingResponse = NowPlayingResponse.fromRawJson(response.body);
-    onDisplayMovies = nowPLayingResponse.results;
-    //le comunico a todos los widgets que estan escuchando 
+  }
+
+  getPopularMovies() async {
+    var url = Uri.https(_baseUrl, '3/movie/popular',
+        {'api_key': _apiKey, 'languaje': _languague, 'page': '1'});
+    final response = await http.get(url);
+    final popularResponse = PopularResponse.fromRawJson(response.body);
+    //destructurar resultado para cambiar pagina y mantener los actuales
+    popularMovies = [...popularMovies, ...popularResponse.results];
     notifyListeners();
-    //print(nowPLayingResponse.results[0].title);
   }
 }

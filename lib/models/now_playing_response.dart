@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:peliculas_2023/models/movie.dart';
+import 'package:peliculas_2023/models/models.dart';
 
 class NowPlayingResponse {
   Dates dates;
@@ -9,6 +9,7 @@ class NowPlayingResponse {
   int totalPages;
   int totalResults;
 
+//constructor
   NowPlayingResponse({
     required this.dates,
     required this.page,
@@ -17,10 +18,11 @@ class NowPlayingResponse {
     required this.totalResults,
   });
 
+//Es para desarializar los datos del Json para pasarlos a la clase
   factory NowPlayingResponse.fromRawJson(String str) =>
       NowPlayingResponse.fromJson(json.decode(str));
 
-  //String toRawJson() => json.encode(toJson());
+  // String toRawJson() => json.encode(toJson());
 
   factory NowPlayingResponse.fromJson(Map<String, dynamic> json) =>
       NowPlayingResponse(
@@ -32,7 +34,9 @@ class NowPlayingResponse {
         totalResults: json["total_results"],
       );
 
-  /*Map<String, dynamic> toJson() => {
+//pasa de la clase a un json
+/*
+  Map<String, dynamic> toJson() => {
         "dates": dates.toJson(),
         "page": page,
         "results": List<dynamic>.from(results.map((x) => x.toJson())),

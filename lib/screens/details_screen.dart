@@ -1,26 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:peliculas_2023/widgets/widgets.dart';
 
-class DetailsScreen extends StatelessWidget {
-  const DetailsScreen({super.key});
+class DetailScreen extends StatelessWidget {
+  const DetailScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     //recibir argumentos de otra pantalla
-    final String movie = ModalRoute.of(context)?.settings.arguments.toString() ?? 'Sin nombre';
+    final String movie =
+        ModalRoute.of(context)?.settings.arguments.toString() ?? 'sin nombre';
     return const Scaffold(
-      body: CustomScrollView(
-        slivers: [
-          _CustomAppBar(),
-          SliverList(
-              delegate: SliverChildListDelegate.fixed([
-            _PosterAndTitle(),
-            _Overview(),
-            CastingSlider(),
-          ])),
-        ],
-      ),
-    );
+        body: CustomScrollView(
+      slivers: [
+        _CustomAppBar(),
+        SliverList(
+          delegate: SliverChildListDelegate.fixed(
+            [_PosterAndTitle(), _Overview(), MovieSlider2()],
+          ),
+        )
+      ],
+    ));
   }
 }
 
@@ -30,26 +28,28 @@ class _CustomAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
-      backgroundColor: Colors.black,
-      expandedHeight: 200,
-      floating: false,
+      backgroundColor: Colors.amberAccent,
+      expandedHeight: 200, //lo mas que se expanda
+      floating: false, //sin sombra
       pinned: true,
-      //WIDGET para que se ajuste al tamaño
+      //Widget para que se ajuste al tama;o
       flexibleSpace: FlexibleSpaceBar(
         centerTitle: true,
-        titlePadding: EdgeInsets.all(0),
+        //Eliminar el padding
+        titlePadding: const EdgeInsets.all(0),
         title: Container(
           width: double.infinity,
           alignment: Alignment.bottomCenter,
           color: Colors.black12,
-          child: Text(
-            'Movie.Title',
+          child: const Text(
+            'movie.title',
             style: TextStyle(fontSize: 18),
           ),
         ),
-        background: FadeInImage(
-            placeholder: AssetImage('assets/loading.gif'),
-            image: AssetImage('assets/foto.jpeg')),
+        background: const FadeInImage(
+          placeholder: AssetImage('assets/loading.gif'),
+          image: AssetImage('assets/camarita.jpg'),
+        ),
       ),
     );
   }
@@ -68,14 +68,12 @@ class _PosterAndTitle extends StatelessWidget {
           ClipRRect(
             borderRadius: BorderRadius.circular(20),
             child: const FadeInImage(
-              placeholder: AssetImage('assets/foto.jpeg'),
-              image: AssetImage('assets/foto.jpeg'),
+              placeholder: AssetImage('assets/camarita.jpg'),
+              image: AssetImage('assets/camarita.jpg'),
               height: 250,
             ),
           ),
-          const SizedBox(
-            width: 20,
-          ),
+          const SizedBox(width: 20),
           const Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -88,7 +86,7 @@ class _PosterAndTitle extends StatelessWidget {
                 ),
                 Text(
                   'movie.titleOriginal',
-                  style: TextStyle(fontSize: 15),
+                  style: TextStyle(fontSize: 18),
                   textAlign: TextAlign.center,
                   overflow: TextOverflow.ellipsis,
                   maxLines: 2,
@@ -98,7 +96,7 @@ class _PosterAndTitle extends StatelessWidget {
                     Icon(
                       Icons.start_outlined,
                       size: 20,
-                      color: Colors.lightBlue,
+                      color: Colors.blue,
                     ),
                     SizedBox(width: 5),
                     Text(
@@ -106,12 +104,12 @@ class _PosterAndTitle extends StatelessWidget {
                       style: TextStyle(fontSize: 15),
                       overflow: TextOverflow.ellipsis,
                       maxLines: 2,
-                    ),
+                    )
                   ],
-                ),
+                )
               ],
             ),
-          ),
+          )
         ],
       ),
     );
@@ -125,14 +123,83 @@ class _Overview extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(
-        horizontal: 20, 
+        horizontal: 20,
         vertical: 10,
-        ),
-        child: const Text('Labore adipisicing elit eu qui culpa labore aliqua commodo duis. Duis in excepteur veniam in sunt aliqua. Commodo aliqua cillum nostrud eu ipsum eiusmod nulla ut occaecat. Velit culpa qui sint enim elit non culpa labore. Ad ad ex dolor exercitation elit ipsum aliquip voluptate excepteur excepteur id.',
+      ),
+      child: const Text(
+        'Velit ex eiusmod eiusmod anim officia aliqua reprehenderit commodo ipsum duis. Ut nulla voluptate Lorem in nulla sit irure. Ea nulla velit nulla pariatur ullamco culpa. Qui dolore labore veniam est culpa. Amet ad occaecat ullamco elit duis nulla mollit. Nisi cillum fugiat Lorem ad dolore dolore sint elit.',
         textAlign: TextAlign.justify,
         style: TextStyle(fontSize: 15),
+      ),
+    );
+  }
+}
 
+//Agregamos lo mismo que en movies_slider
+class MovieSlider2 extends StatelessWidget {
+  const MovieSlider2({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    return Container(
+      width: double.infinity,
+      height: size.height * 0.30,
+      color: Color.fromARGB(255, 194, 191, 47),
+      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        const Padding(
+          padding: EdgeInsets.symmetric(
+              horizontal: 20), //separacion Horizontal de 20 pixeles
+          child: Text(
+            'Actores',
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          ),
         ),
+        Expanded(
+          child: ListView.builder(
+            scrollDirection: Axis.horizontal,
+            itemCount: 20,
+            itemBuilder: (_, int index) => const _MoviePoster2(),
+          ),
+        )
+      ]),
+    );
+  }
+}
+
+//Crear las tarjetas
+class _MoviePoster2 extends StatelessWidget {
+  const _MoviePoster2({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 130,
+      height: 210,
+      margin: const EdgeInsets.symmetric(horizontal: 10),
+      child: Column(
+        children: [
+          GestureDetector(
+            onTap: () => Navigator.pushNamed(context, 'details', arguments: ''),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(20),
+              child: const FadeInImage(
+                placeholder: AssetImage('assets/camarita.jpg'),
+                image: AssetImage('assets/camarita.jpg'),
+                width: 130,
+                height: 49,
+              ),
+            ),
+          ),
+          const SizedBox(height: 5),
+          const Text(
+            'Pos ni supe q decia ahi pq creo taba en portugues',
+            maxLines: 3,
+            overflow: TextOverflow.ellipsis,
+            textAlign: TextAlign.center,
+          )
+        ],
+      ),
     );
   }
 }
