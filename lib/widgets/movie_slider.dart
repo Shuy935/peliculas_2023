@@ -45,7 +45,7 @@ class _MoviePoster extends StatelessWidget {
     return Container(
       width: 130,
       height: 210,
-      margin: const EdgeInsets.symmetric(horizontal: 10),
+      margin: EdgeInsets.symmetric(horizontal: 10),
       child: Column(
         children: [
           GestureDetector(

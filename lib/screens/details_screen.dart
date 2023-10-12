@@ -1,20 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:peliculas_2023/models/movie.dart';
 
 class DetailScreen extends StatelessWidget {
+
   const DetailScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     //recibir argumentos de otra pantalla
-    final String movie =
-        ModalRoute.of(context)?.settings.arguments.toString() ?? 'sin nombre';
-    return const Scaffold(
+    final Movie movie = ModalRoute.of(context)?.settings.arguments as Movie;
+    return Scaffold(
         body: CustomScrollView(
       slivers: [
-        _CustomAppBar(),
+        _CustomAppBar(movie: movie),
         SliverList(
           delegate: SliverChildListDelegate.fixed(
-            [_PosterAndTitle(), _Overview(), MovieSlider2()],
+            [_PosterAndTitle(movie: movie),
+            _Overview(movie: movie,), 
+            MovieSlider2()],
           ),
         )
       ],
@@ -23,7 +26,8 @@ class DetailScreen extends StatelessWidget {
 }
 
 class _CustomAppBar extends StatelessWidget {
-  const _CustomAppBar({super.key});
+  final Movie movie;
+  const _CustomAppBar({super.key, required this.movie});
 
   @override
   Widget build(BuildContext context) {
@@ -41,14 +45,14 @@ class _CustomAppBar extends StatelessWidget {
           width: double.infinity,
           alignment: Alignment.bottomCenter,
           color: Colors.black12,
-          child: const Text(
-            'movie.title',
+          child: Text(
+            movie.title,
             style: TextStyle(fontSize: 18),
           ),
         ),
-        background: const FadeInImage(
+        background: FadeInImage(
           placeholder: AssetImage('assets/loading.gif'),
-          image: AssetImage('assets/camarita.jpg'),
+          image: NetworkImage(movie.fullPosterImgOv),
         ),
       ),
     );
@@ -56,7 +60,8 @@ class _CustomAppBar extends StatelessWidget {
 }
 
 class _PosterAndTitle extends StatelessWidget {
-  const _PosterAndTitle({super.key});
+  final Movie movie;
+  const _PosterAndTitle({super.key, required this.movie});
 
   @override
   Widget build(BuildContext context) {
@@ -67,25 +72,25 @@ class _PosterAndTitle extends StatelessWidget {
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(20),
-            child: const FadeInImage(
-              placeholder: AssetImage('assets/camarita.jpg'),
-              image: AssetImage('assets/camarita.jpg'),
+            child: FadeInImage(
+              placeholder: const AssetImage('assets/foto.jpeg'),
+              image: NetworkImage(movie.fullPosterImg),
               height: 250,
             ),
           ),
-          const SizedBox(width: 20),
-          const Expanded(
+          SizedBox(width: 20),
+          Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'movie.title',
-                  style: TextStyle(fontSize: 30),
+                  movie.title,
+                  style: const TextStyle(fontSize: 30),
                   overflow: TextOverflow.ellipsis,
                   maxLines: 2,
                 ),
                 Text(
-                  'movie.titleOriginal',
+                  movie.originalTitle,
                   style: TextStyle(fontSize: 18),
                   textAlign: TextAlign.center,
                   overflow: TextOverflow.ellipsis,
@@ -93,15 +98,15 @@ class _PosterAndTitle extends StatelessWidget {
                 ),
                 Row(
                   children: [
-                    Icon(
+                    const Icon(
                       Icons.start_outlined,
                       size: 20,
                       color: Colors.blue,
                     ),
                     SizedBox(width: 5),
                     Text(
-                      'movie.voteAverage',
-                      style: TextStyle(fontSize: 15),
+                      movie.voteAverage.toString(),
+                      style: const TextStyle(fontSize: 15),
                       overflow: TextOverflow.ellipsis,
                       maxLines: 2,
                     )
@@ -117,7 +122,8 @@ class _PosterAndTitle extends StatelessWidget {
 }
 
 class _Overview extends StatelessWidget {
-  const _Overview({super.key});
+  final Movie movie;
+  const _Overview({super.key, required this.movie});
 
   @override
   Widget build(BuildContext context) {
@@ -126,8 +132,8 @@ class _Overview extends StatelessWidget {
         horizontal: 20,
         vertical: 10,
       ),
-      child: const Text(
-        'Velit ex eiusmod eiusmod anim officia aliqua reprehenderit commodo ipsum duis. Ut nulla voluptate Lorem in nulla sit irure. Ea nulla velit nulla pariatur ullamco culpa. Qui dolore labore veniam est culpa. Amet ad occaecat ullamco elit duis nulla mollit. Nisi cillum fugiat Lorem ad dolore dolore sint elit.',
+      child: Text(
+        movie.overview,
         textAlign: TextAlign.justify,
         style: TextStyle(fontSize: 15),
       ),
@@ -184,8 +190,8 @@ class _MoviePoster2 extends StatelessWidget {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(20),
               child: const FadeInImage(
-                placeholder: AssetImage('assets/camarita.jpg'),
-                image: AssetImage('assets/camarita.jpg'),
+                placeholder: AssetImage('assets/foto.jpeg'),
+                image: AssetImage('assets/foto.jpeg'),
                 width: 130,
                 height: 49,
               ),
@@ -193,7 +199,7 @@ class _MoviePoster2 extends StatelessWidget {
           ),
           const SizedBox(height: 5),
           const Text(
-            'Pos ni supe q decia ahi pq creo taba en portugues',
+            'actores',
             maxLines: 3,
             overflow: TextOverflow.ellipsis,
             textAlign: TextAlign.center,
