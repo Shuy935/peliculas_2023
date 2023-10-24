@@ -13,7 +13,7 @@ class MoviesProvider extends ChangeNotifier {
   String _apiKey = '9dc27117b000e7e5acfb365fa957971a';
   String _languague = 'es-MX';
 
-  List<Movie> onDisplayMovies = [];
+  List<Movie> onDisplayMovies = []; //lista de peliculas
   List<Movie> popularMovies = [];
   //contructor
   MoviesProvider() {

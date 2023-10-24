@@ -1,6 +1,6 @@
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
-import 'package:peliculas_2023/models/models.dart';
+import 'package:peliculas_2023/models/movie.dart';
 //Vamos reutilizar este widget
 
 class CardSwiper extends StatelessWidget {
@@ -22,17 +22,18 @@ class CardSwiper extends StatelessWidget {
           itemWidth: size.width * 0.5,
           itemHeight: size.height * 0.4,
           itemBuilder: (_, int index) {
-            final movie = movies[index];
+            final movie = movies[index]; //instancia de movie
             //print(movie.posterPath);
-            //print(movie.fullPosterImg);
+            // print(movie.fullPosterImg);
             return GestureDetector(
+              //detecte el movimiento
               onTap: () =>
                   Navigator.pushNamed(context, 'details', arguments: movie),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(
                     20), //Para hacer las esquinas redondeadas
                 child: FadeInImage(
-                  placeholder: const AssetImage('assets/foto.jpeg'),
+                  placeholder: AssetImage('assets/camarita.jpg'),
                   image: NetworkImage(movie.fullPosterImg),
                 ),
               ),

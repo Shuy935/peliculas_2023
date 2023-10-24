@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:peliculas_2023/providers/movies_provider.dart';
-import 'package:peliculas_2023/widgets/widgets.dart';
+import 'package:peliculas_2023/widgets/card_swiper.dart';
+import 'package:peliculas_2023/widgets/movie_slider.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});

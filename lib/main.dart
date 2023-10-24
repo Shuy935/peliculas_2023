@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:peliculas_2023/screens/details_screen.dart';
+import 'package:peliculas_2023/screens/home_screen.dart';
 import 'package:provider/provider.dart';
-import 'package:peliculas_2023/screens/screens.dart';
 import 'providers/movies_provider.dart';
 
-void main() => runApp(AppState());
+void main() => runApp(const AppState());
 
 //Modo perezoso, no se crea hasta que alguien lo cree
 class AppState extends StatelessWidget {

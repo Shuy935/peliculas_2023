@@ -45,18 +45,19 @@ class _MoviePoster extends StatelessWidget {
     return Container(
       width: 130,
       height: 210,
-      margin: EdgeInsets.symmetric(horizontal: 10),
+      margin: const EdgeInsets.symmetric(horizontal: 10),
       child: Column(
         children: [
           GestureDetector(
-            onTap: () => Navigator.pushNamed(context, 'details', arguments: ''),
+            onTap: () =>
+                Navigator.pushNamed(context, 'details', arguments: movie),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(20),
               child: FadeInImage(
-                placeholder: AssetImage('assets/foto.jpeg'),
+                placeholder: AssetImage('assets/camarita.jpg'),
                 image: NetworkImage(movie.fullPosterImg),
                 width: 130,
-                height: 180,
+                height: 150,
               ),
             ),
           ),
